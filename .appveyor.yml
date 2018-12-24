@@ -1,13 +1,13 @@
 environment:
   matrix:
-    - FLAVOR: squeak.cog.spur
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: squeak.cog.spur
-      ARCH: win64x64
-      CYG_ROOT: C:\cygwin64
-      MINGW_ARCH: x86_64
+#    - FLAVOR: squeak.cog.spur
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: squeak.cog.spur
+#      ARCH: win64x64
+#      CYG_ROOT: C:\cygwin64
+#      MINGW_ARCH: x86_64
     - FLAVOR: pharo.cog.spur
       ARCH: win32x86
       CYG_ROOT: C:\cygwin
@@ -16,26 +16,26 @@ environment:
       ARCH: win64x64
       CYG_ROOT: C:\cygwin64
       MINGW_ARCH: x86_64
-    - FLAVOR: squeak.sista.spur
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: squeak.cog.spur.lowcode
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: squeak.cog.v3
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: squeak.stack.spur
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: squeak.stack.v3
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
+##    - FLAVOR: squeak.sista.spur
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: squeak.cog.spur.lowcode
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: squeak.cog.v3
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: squeak.stack.spur
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: squeak.stack.v3
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
     - FLAVOR: pharo.sista.spur
       ARCH: win32x86
       CYG_ROOT: C:\cygwin
@@ -44,34 +44,34 @@ environment:
       ARCH: win32x86
       CYG_ROOT: C:\cygwin
       MINGW_ARCH: i686
-    - FLAVOR: newspeak.cog.spur
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
-    - FLAVOR: newspeak.stack.spur
-      ARCH: win32x86
-      CYG_ROOT: C:\cygwin
-      MINGW_ARCH: i686
+#    - FLAVOR: newspeak.cog.spur
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
+#    - FLAVOR: newspeak.stack.spur
+#      ARCH: win32x86
+#      CYG_ROOT: C:\cygwin
+#      MINGW_ARCH: i686
     # - FLAVOR: pharo.sista.spur
     #   ARCH: win64x64
     #   CYG_ROOT: C:\cygwin64
     #   MINGW_ARCH: x86_64
-    - FLAVOR: newspeak.cog.spur
-      ARCH: win64x64
-      CYG_ROOT: C:\cygwin64
-      MINGW_ARCH: x86_64
-    - FLAVOR: squeak.stack.spur
-      ARCH: win64x64
-      CYG_ROOT: C:\cygwin64
-      MINGW_ARCH: x86_64
+#    - FLAVOR: newspeak.cog.spur
+#      ARCH: win64x64
+#      CYG_ROOT: C:\cygwin64
+#      MINGW_ARCH: x86_64
+#    - FLAVOR: squeak.stack.spur
+#      ARCH: win64x64
+#      CYG_ROOT: C:\cygwin64
+#      MINGW_ARCH: x86_64
     - FLAVOR: pharo.stack.spur
       ARCH: win64x64
       CYG_ROOT: C:\cygwin64
       MINGW_ARCH: x86_64
-    - FLAVOR: newspeak.stack.spur
-      ARCH: win64x64
-      CYG_ROOT: C:\cygwin64
-      MINGW_ARCH: x86_64
+#    - FLAVOR: newspeak.stack.spur
+#      ARCH: win64x64
+#      CYG_ROOT: C:\cygwin64
+#      MINGW_ARCH: x86_64
 
 
 matrix:
