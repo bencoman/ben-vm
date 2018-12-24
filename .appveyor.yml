@@ -93,8 +93,8 @@ platform:
 
 clone_depth: 5
 
-cache:
-  - .thirdparty-cache
+#cache:
+#  - .thirdparty-cache
 
 install:
   - 'curl -fsSL --retry 4 -m 600 -o "setup-x86.exe" "http://cygwin.com/setup-x86.exe" '
