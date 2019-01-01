@@ -85,7 +85,7 @@ matrix:
 notifications:
   - provider: Email
     to:
-      - vm-dev@lists.squeakfoundation.org
+      - btc@openinworld.com
     on_build_success: false
 
 platform:

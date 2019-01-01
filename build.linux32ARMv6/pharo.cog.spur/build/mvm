@@ -51,8 +51,7 @@ rm -rf ../../../products/$INSTALLDIR
 echo HERE1
 make -j4 install-squeak install-plugins prefix=`(cd ../../../;pwd)`/products/$INSTALLDIR 2>&1 | tee LOG
 echo HERE1a
-find ../../..
-echo HERE1b
+echo HERE1b find ../../../products
 find ../../../products
 echo HERE1c
 productDir=`find ../../../products/$INSTALLDIR -name "5.0*"`
