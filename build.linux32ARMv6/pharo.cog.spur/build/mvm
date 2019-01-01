@@ -48,9 +48,15 @@ rm -f vm/sqUnixMain.o # nuke version info
 rm -rf ../../../products/$INSTALLDIR
 # prefer make install prefix=`readlink -f \`pwd\`/../../../products/$INSTALLDIR`
 # but older linux readlinks lack the -f flag and Raspbian lacks `readlinks`
+echo HERE1
 make -j4 install-squeak install-plugins prefix=`(cd ../../../;pwd)`/products/$INSTALLDIR 2>&1 | tee LOG
+echo HERE1a
+find ../../../products
+echo HERE1b
 productDir=`find ../../../products/$INSTALLDIR -name "5.0*"`
+echo HERE2
 productDir=`(cd $productDir;pwd)`
+echo HERE3
 for lib in ${THIRDPARTYLIBS}; do
 	../../third-party/mvm ${lib} install $productDir
 done
