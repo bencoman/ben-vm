@@ -130,13 +130,15 @@ build_mingw_on_linux() {
 
     pwd
     ls -F
-    ZIPFILE="Squeak-${ARCH}-${FLAVOUR}Windows" 
-    zip -r $ZIPFILE . build/
+    cd build/vm
+    ZIPFILE="Squeak-Windows.${ARCH}.zip" 
+    zip -r ${ZIPFILE} . 
     popd
     mkdir -p artifacts
-    mv `find . -name "${ZIPFILE}*"` artifacts
+    mv `find . -name "${ZIPFILE}"` artifacts
     ls -F
     ls -F artifacts
+    env
 }
 
 if [[ ! $(type -t build_$PLATFORM) ]]; then
