@@ -40,4 +40,5 @@ deploy:
     xx.txt
   on:
     tags: true
-    repo: bencoman/mingw-on-linux
+    repo: bencoman/opensmalltalk-vm
+    branch: mingw-on-linux
