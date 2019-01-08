@@ -130,8 +130,9 @@ build_mingw_on_linux() {
 
     pwd
     ls -F
-    ZIPFILE="Squeak-${ARCH}-${FLAVOUR}Windows" 
-    zip -r $ZIPFILE . build/
+    cd build/vm
+    ZIPFILE="Squeak-Windows(${ARCH})" 
+    zip -r ../../${PFILE} . 
     popd
     mkdir -p artifacts
     mv `find . -name "${ZIPFILE}*"` artifacts
