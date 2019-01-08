@@ -128,15 +128,13 @@ build_mingw_on_linux() {
     bash -e ./mvm -f
     travis_fold end build_vm
 
-    pwd
-    ls -F
-    ZIPFILE="Squeak-${ARCH}-${FLAVOUR}Windows" 
-    zip -r $ZIPFILE . build/
+    cd build/vm
+    ZIPFILE="Squeak-Windows.${ARCH}.${TRAVIS_TAG}.zip" 
+    zip -r ${ZIPFILE} . 
     popd
-    mkdir -p artifacts
-    mv `find . -name "${ZIPFILE}*"` artifacts
-    ls -F
-    ls -F artifacts
+    # Easier pick up location for .travis.yml > deploy
+    mkdir -p assets-deploy
+    mv `find . -name "${ZIPFILE}"` assets-deploy
 }
 
 if [[ ! $(type -t build_$PLATFORM) ]]; then
