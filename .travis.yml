@@ -1,42 +1,25 @@
 dist: xenial
-
 language: c
-
 sudo: required
-
-addons:
-  apt:
-    update: true
-
-aliases:
-- os: osx
-  osx_image: xcode7.3
-
 notifications:
   email:
   - btc@openInWorld.com
-
 jobs:
   fast_finish: true
   include:
   - stage: Stack builds
     env: ARCH="mingw32x86-on-linux" FLAVOR="squeak.stack.spur"
-
 install: "./scripts/ci/travis_install.sh"
-
 before_script: "$CHROOT ./scripts/ci/travis_build.sh"
-
 script: "./scripts/ci/travis_test.sh"
-
 after_success: "(cd deploy && ./filter-exec.sh pack-vm.sh)"
-
 deploy:
   provider: releases
   api_key:
-    secure: DnAFVBvSAUg7AUZ/QNomyu0pl92CUe/EM0C/y4PGaOA4mMzmsJlDzb+ZX33GCIOeATHrWF029CRDpwNA5zgLxfMaEHLjH+c40XEuG3PeJxnJEnRzFaQjQT6APbHqX2w9eyXgGUz1bFM+KDs8lXwT2EaD8F6kgfMx+FTJe+xPUldf6cJC3Ey2T48p/myuCMqrzGrpQfCu8DPXr7iyzlZCwwTXm83z+8TzlYHH7sPTPXIWTKM4phHKlp49b0XHHQ1tREIcbHG3NN+ZJ/MYIEFTC7PRXRCeNvHA9klMZ8mqSs3Cv7CdYSRsn/lafE98CdekC1tAQuatAUtDxtnO8c7mLghAPCINJ2DTtHfDbKip+hjsiSF1NDi73h4S94hYJg8v7VqBJ0+WBPmu5x3H7WMacvi8/OAo+39Nhj2UpjR4/29xEpjVau6rvBDJ+raJ0aR094nZdwUHD/Hc2VNgm7xxEdeoWRWZSmBXor/iEBv0O81wsmpaP8pny48z3xgrtgPoeFysBAdirxhrMT4Sgag+WYTdv9q1kK9pkVdGIIzKRZtWVk+E7+cRtD5OdCIrOoA+p1gHQbPXaZ9j6puBczV4XrRd2+k6DfCSvy9hgfL9eXvxPbdfLs+UW45u3NkhaldQXNc7CDoehHWYncKqBr4HwwlOwOKZjABUSiEz7PeecTc=
-  skip_cleanup: true
+    secure: DqPVrcSmAmFMYq9Y4IQ3GMA2gTGXV7wf/uJYFFhKKbj8My4PMWvSe2GLYFkwKMcZM2O1bZdkLn5RZb9cWXr391VPtNvVhNyQbLfOq2JND17Ejeih8CQsiZ+dEOsefrsdXSxwWIzadTnD2ot8EyFpHLrUoLEPYp7nwKICV5hWzJ7+jIG6tMUehfVVatyGgEiIpb6obeddwX6BW255g+JTACQc3xkLXHtlp0ielRMBLtwcamzDzOilKKDCiC0axr41avq/Krkk6UDHiA1tcJdT2EvIYgqj+b7wwOerbHetsXNCty0oTi9NfIQwPjV4gDMDvpk47fRMTwt61O9DbLRRpEQFAWCmCBeLJxkKYfKZ2haqKRSh45WQEvEhzkjATYGnL6xB62y0SRRZStrU/4/fwO6cy+UeFuQei93v0r8gY2chA557HNcM7XCJFd0skjGrpmDVeqTe7QREjR/a/fJKgeyTh195knbDLD+V2GAY+d7crKqlQOStH1+sX5/04nsZ3V9TsT0qcWQMqWmSWkrbsNGeXnS7K20pNANiI9K7fIT23VAhmyZ6NIWvuxo+q4uaC4Ej9d7ix09qn6akTjbeD1eAsEIzv5lrbi3L20amJpIwivf3sUH5I+1xm6sYayNy7vVGQ8bH00c/oLBhKk9O2nHshCxlc8jt0a/m0GZhv6U=
   file_glob: true
-  file:
-  - artifacts/*
+  file: artifacts/*
+  skip_cleanup: true
   on:
-    branch: mingw-on-linux
+    repo: bencoman/opensmalltalk-vm
+    tags: true
