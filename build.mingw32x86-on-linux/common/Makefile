@@ -112,8 +112,6 @@ VMDEFIN:=$(VM).def.in
 BTOBJ:= $(OBJDIR)/btext.o
 ETOBJ:= $(OBJDIR)/etext.o
 
-.PRECIOUS: mkNamedPrims.exe
-
 #############################################################################
 # DirectX definitions - NOT USED - superseded by mingw provided files
 #
@@ -157,27 +155,27 @@ debug:
 	$(MAKE) -f $(MAKEFILE_LIST) CONFIGURATION=debug THREADING=single $(@,debug=) default
 
 # Do make init to allow make -n to function.
-init: $(THIRDPARTYPREREQS) $(OBJDIR) mkNamedPrims.exe
+init: $(THIRDPARTYPREREQS) $(OBJDIR)
 
 cleanall:	clean cleanmt cleanast cleanmtast cleandbg cleanmtdbg
 
 clean:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe build
+	rm -rf sqNamedPrims.h build
 
 cleanmt:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe buildmt
+	rm -rf sqNamedPrims.h buildmt
 
 cleanast:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe buildast
+	rm -rf sqNamedPrims.h buildast
 
 cleanmtast:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe buildmtast
+	rm -rf sqNamedPrims.h buildmtast
 
 cleandbg:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe builddbg
+	rm -rf sqNamedPrims.h builddbg
 
 cleanmtdbg:
-	rm -rf sqNamedPrims.h mkNamedPrims.exe buildmtdbg
+	rm -rf sqNamedPrims.h buildmtdbg
 
 nukelibs:
 	rm $(LIBS)
@@ -205,9 +203,6 @@ ignore := $(addsuffix .%, $(basename $(wildcard $(BUILD)/vm/*.ignore)))
 
 mingw32ver.exe: $(WIN32UTILDIR)/mingw32ver.c
 	$(CC) -o $@ -O1 -mconsole -m32 $<
-
-mkNamedPrims.exe: $(WIN32UTILDIR)/mkNamedPrims.c
-	$(CC) -o $@ -mconsole -m32 $<
 
 $(BTOBJ):	$(WIN32MISCDIR)/btext.c
 	$(CC) -c -o $@ -fomit-frame-pointer -O2 $<
@@ -303,7 +298,7 @@ resource.o:	$(VMRES)
 #############################################################################
 # Extra specific dependencies
 #
-sqNamedPrims.h: plugins.int mkNamedPrims.exe
-	./mkNamedPrims.exe $(INTERNAL_PLUGINS) > sqNamedPrims.h
+sqNamedPrims.h: plugins.int 
+	../common/mkNamedPrims.sh plugins.int | sed -e 's/\r/\n/g' > sqNamedPrims.h
 
 $(OBJDIR)/sqNamedPrims.o:	sqNamedPrims.c sqNamedPrims.h
