@@ -1,5 +1,5 @@
 #!/bin/bash -x
-set -e
+set -e 
 
 env
 
@@ -19,6 +19,8 @@ if [[ "${APPVEYOR}" ]]; then
     echo
     test -d /usr/i686-w64-mingw32/sys-root/mingw/lib || echo "No lib dir"
     test -d /usr/i686-w64-mingw32/sys-root/mingw/include || echo "No inc dir"
+elif [[ "${ARCH}" == "mingw"*"on-linux" ]]; then
+    PLATFORM="mingw_on_linux"
 else
     PLATFORM="${TRAVIS_OS_NAME}"
 fi
@@ -114,6 +116,27 @@ build_windows() {
     # zip -r "${output_file}.zip" "./builddbg/vm/" "./buildast/vm/" "./build/vm/"
     mv "./build/vm" "${PRODUCTS_DIR}/" # Move result to PRODUCTS_DIR
     popd
+}
+
+build_mingw_on_linux() {
+    [[ ! -d "${BUILD_DIRECTORY}" ]] && exit 150
+
+    pushd "${BUILD_DIRECTORY}"
+    travis_fold start build_vm "Building OpenSmalltalk VM..."
+    find /usr/bin | grep mingw | grep gcc
+    echo PATH=${PATH}
+    bash -e ./mvm -f
+    travis_fold end build_vm
+
+    pwd
+    ls -F
+    ZIPFILE="Squeak-${ARCH}-${FLAVOUR}Windows" 
+    zip -r $ZIPFILE . build/
+    popd
+    mkdir -p artifacts
+    mv `find . -name "${ZIPFILE}*"` artifacts
+    ls -F
+    ls -F artifacts
 }
 
 if [[ ! $(type -t build_$PLATFORM) ]]; then
