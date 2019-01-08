@@ -39,4 +39,4 @@ deploy:
   file:
   - artifacts/*
   on:
-    branch: mingw-on-linux
+    tags: true
