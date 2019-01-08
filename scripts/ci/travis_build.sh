@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
 set -e
+
+env
 
 source ./scripts/ci/travis_helpers.sh
 
