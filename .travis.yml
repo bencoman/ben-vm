@@ -21,4 +21,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: bencoman/opensmalltalk-vm
-    branch: mingw-on-linux
+    tags: true
