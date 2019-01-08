@@ -1,8 +1,8 @@
 #!/bin/bash -x
 set -e 
 
-mkdir artifacts
-echo xxx > artifacts/xx.txt
+echo xx > xx.txt
+git branch
 exit 0
 
 env

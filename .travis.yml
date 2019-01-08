@@ -37,7 +37,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file:
-    - artifacts/*
+    xx.txt
   on:
     tags: true
     repo: bencoman/mingw-on-linux
