@@ -41,4 +41,3 @@ deploy:
   on:
     tags: true
     repo: bencoman/opensmalltalk-vm
-    branch: mingw-on-linux
