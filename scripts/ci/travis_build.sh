@@ -1,6 +1,10 @@
 #!/bin/bash -x
 set -e 
 
+mkdir artifacts
+echo xxx > artifacts/xx.txt
+exit 0
+
 env
 
 source ./scripts/ci/travis_helpers.sh

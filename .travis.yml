@@ -4,13 +4,13 @@ language: c
 
 sudo: required
 
-addons:
-  apt:
-    update: true
+#addons:
+#  apt:
+#    update: true
 
-aliases:
-- os: osx
-  osx_image: xcode7.3
+#aliases:
+#- os: osx
+#  osx_image: xcode7.3
 
 notifications:
   email:
@@ -37,6 +37,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file:
-  - artifacts/*
+    - artifacts/*
   on:
     tags: true
+    repo: bencoman/mingw-on-linux
