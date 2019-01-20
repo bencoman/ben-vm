@@ -30,39 +30,45 @@ stages: # order of...
   - Experimental
   - Other
 
-
+script:
+  - env # placeholder for travis_build.sh
 
 # Sections 'os:' and 'env:' are cross-tabulated to form the 'Coverage' matrix
-# 'Production' jobs are pulled out of that matrix into their own section
+# 'Production' jobs are tagged with a alias to facilitate pulling them 
+# out of the coverage matrix into their own section
 
 stage: Coverage
+
+env: 
+  global:
+    - ARMCHROOT="schroot -p -c rpi -- bash -c "
+  matrix: [
+    &Squeak32    "BUILD=32x86/squeak.cog.spur      TESTIMAGE=Squeak32-5.1",
+    &Pharo32     "BUILD=32x86/pharo.cog.spur       TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
+                 "BUILD=32x86/newspeak.cog.spur    TESTIMAGE=refer_newspeakBootstrap.sh",
+                 "BUILD=32x86/squeak.cog.v3        TESTIMAGE=Squeak32-4.6",
+
+    &Squeak64    "BUILD=64x64/squeak.cog.spur      TESTIMAGE=skip",
+    &Pharo64     "BUILD=64x64/pharo.cog.spur       TESTIMAGE=skip",
+                 "BUILD=64x64/newspeak.cog.spur    TESTIMAGE=skip",
+
+                 "BUILD=32x86/squeak.stack.spur    TESTIMAGE=Squeak32-5.1",
+                 "BUILD=32x86/pharo.stack.spur     TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
+                 "BUILD=32x86/newspeak.stack.spur  TESTIMAGE=refer_newspeakBootstrap.sh",
+                 "BUILD=32x86/squeak.stack.v3      TESTIMAGE=Squeak32-4.6",
+
+                 "BUILD=64x64/squeak.stack.spur    TESTIMAGE=skip",
+                 "BUILD=64x64/pharo.stack.spur     TESTIMAGE=skip",
+                 "BUILD=64x64/newspeak.stack.spur  TESTIMAGE=skip",
+  ]
 
 os:
   -       linux
   -       osx
 #  -       windows
 
-env: [
-    &Squeak32    "BUILD=32x86/squeak.cog.spur     TESTIMAGE=Squeak32-5.1",
-    &Pharo32     "BUILD=32x86/pharo.cog.spur      TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
-                 "BUILD=32x86/newspeak.cog.spur   TESTIMAGE=refer_newspeakBootstrap.sh",
-                 "BUILD=32x86/squeak.cog.v3       TESTIMAGE=Squeak32-4.6",
-
-                 "BUILD=32x86/squeak.cog.spur     TESTIMAGE=Squeak32-5.1",
-                 "BUILD=32x86/pharo.cog.spur      TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
-                 "BUILD=32x86/newspeak.cog.spur   TESTIMAGE=refer_newspeakBootstrap.sh",
-                 "BUILD=32x86/squeak.cog.v3       TESTIMAGE=Squeak32-4.6",
-
-    &Squeak64    "BUILD=64x64/squeak.cog.spur     TESTIMAGE=Squeak32-5.1",
-    &Pharo64     "BUILD=64x64/pharo.cog.spur      TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
-                 "BUILD=64x64/newspeak.cog.spur   TESTIMAGE=refer_newspeakBootstrap.sh",
-
-                 "BUILD=64x64/squeak.cog.spur     TESTIMAGE=Squeak32-5.1",
-                 "BUILD=64x64/pharo.cog.spur      TESTIMAGE=Pharo32-5.0  HEATBEAT=threaded",
-                 "BUILD=64x64/newspeak.cog.spur   TESTIMAGE=refer_newspeakBootstrap.sh",
-]
-
 matrix:
+  fast_finish: true
   allow_failures:
     - stage: Coverage
     - stage: Experimental
@@ -78,9 +84,6 @@ matrix:
     &P07 { "os":"linux", "env":*Squeak32 },
     &P08 { "os":"osx",   "env":*Squeak32 },
   ]
-
-jobs:
-  fast_finish: true
   include:
   # Put 'Production' jobs in their own stage using alias from 'excude:' section
   - stage: Production
@@ -100,26 +103,23 @@ jobs:
   - stage: Production
     <<: *P08
 
-#  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.sista.spur"                                                   }
-#  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/squeak.sista.spur"                                                  }
-#  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/squeak.sista.spur     TESTFAIL=1"                                   }
-#  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/pharo.sista.spur      HEARTBEAT=threaded",    "compiler": "clang"   }
-#  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/pharo.sista.spur      HEARTBEAT=itimer",      "compiler": "clang"   }
-#  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.cog.spur.lowcode"                                             }
-#  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=64x64/pharo.cog.spur.lowcode"                                             }
-#  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.stack.spur.lowcode"                                           }
-#  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=64x64/pharo.stack.spur.lowcode"                                           }
+  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.sista.spur"                                                }
+  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/squeak.sista.spur     TESTFAIL=1"                                }
+  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/pharo.sista.spur      HEARTBEAT=threaded", "compiler": "clang"   }
+  - { "stage":"Experimental",  "os":"linux",  "env":"BUILD=32x86/pharo.sista.spur      HEARTBEAT=itimer",   "compiler": "clang"   }
+  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.cog.spur.lowcode"                                          }
+  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=64x64/pharo.cog.spur.lowcode"                                          }
+  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=32x86/pharo.stack.spur.lowcode"                                        }
+  - { "stage":"Experimental",  "os":"osx",    "env":"BUILD=64x64/pharo.stack.spur.lowcode"                                        }
 
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/newspeak.cog.spur   CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/newspeak.stack.spur CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.cog.spur     CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/pharo.cog.spur      CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.stack.spur   CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.stack.v3     CHROOT=\"schroot -p -c rpi -- bash -c\"", "group": "edge" }
-#
-#    # Putting quicker builds last makes the overall stage faster
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32x86/pharo.cog.spur        HEARTBEAT=itimer" }
-#  - { "stage":"Other",         "os":"linux",  "env":"BUILD=64x64/pharo.cog.spur        HEARTBEAT=itimer" }
-#
-#  ]
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/newspeak.cog.spur",   "group": "edge" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/newspeak.stack.spur", "group": "edge" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.cog.spur",     "group": "edge" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/pharo.cog.spur",      "group": "edge" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.stack.spur",   "group": "edge" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32ARMv6/squeak.stack.v3",     "group": "edge" }
+
+    # Putting quicker builds last makes the overall stage faster
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=32x86/pharo.cog.spur        HEARTBEAT=itimer" }
+  - { "stage":"Other",         "os":"linux",  "env":"BUILD=64x64/pharo.cog.spur        HEARTBEAT=itimer" }
 
